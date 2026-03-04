@@ -94,4 +94,4 @@ Thumbs.db
 json/robot_*_1.json
 
 # Franka ROS2 packages
-src/franka_ros2_packages/
+# src/franka_ros2_packages/
