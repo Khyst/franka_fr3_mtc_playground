@@ -1,6 +1,3 @@
-[submodule "src/src/learn_mtc"]
-	path = src/src/learn_mtc
-	url = https://github.com/khyst/learn_mtc.git
 [submodule "src/learn_mtc"]
 	path = src/learn_mtc
 	url = https://github.com/khyst/learn_mtc.git
