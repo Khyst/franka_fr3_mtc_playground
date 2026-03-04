@@ -1,0 +1,41 @@
+{
+  "name": "MoveIt2 Humble Workspace",
+  
+  // *. docker-compose.yml 파일을 참조하도록 설정
+  "dockerComposeFile": "docker-compose.yml",
+
+  // 0. CPU 버전 컨테이너를 사용하기 위해 "cpu" 서비스로 설정
+  "service": "cpu",
+  "runServices": ["cpu"],
+  "overrideCommand": true,
+
+  // 1. 컨테이너 내부의 실제 워크스페이스 경로로 변경
+  "workspaceFolder": "/root/ws_moveit",
+
+  // 2. 호스트의 환경 변수를 컨테이너로 전달
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "ROS_LOCALHOST_ONLY": "0",
+    "ROS_DOMAIN_ID": "42"
+  },
+
+  // *. VS Code 확장 프로그램을 컨테이너 내부에 설치하도록 설정
+  "customizations": {
+    "vscode": {
+      "extensions": [ 
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-themes",
+        "twxs.cmake",
+        "donjayamanne.python-extension-pack",
+        "eamodio.gitlens",
+        "ms-iot.vscode-ros"
+      ]
+    }
+  },
+
+  // 3. 컨테이너 내부에서 root 사용자로 작업하기 위해 설정 (moveit/moveit2 이미지의 기본 사용자가 root)
+  "remoteUser": "root",
+  
+  // 4. 컨테이너가 시작된 후 초기 설정 스크립트를 실행하도록 설정
+  "postCreateCommand": "bash .devcontainer/initial_setup.sh"
+}

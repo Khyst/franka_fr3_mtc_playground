@@ -1,0 +1,97 @@
+# .gitignore 파일 내용
+
+# ROS 2 빌드 결과물 무시
+build/
+install/
+log/
+
+# Frontend repository
+src/frontend/
+
+# Python 가상환경 및 캐시 무시
+__pycache__/
+*.pyc
+.venv/
+
+# VS Code 설정 및 로그
+.vscode/
+*.log
+
+# Environment variables
+# .env
+# .env.local
+# .env.*.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Heavy files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.iso
+*.dmg
+*.pkg
+*.deb
+*.rpm
+
+# Large data files
+*.parquet
+*.h5
+*.hdf5
+
+# Model files
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.pb
+json/robot_*_1.json
+
+# Franka ROS2 packages
+src/franka_ros2_packages/

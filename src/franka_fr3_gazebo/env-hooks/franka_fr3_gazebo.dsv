@@ -1,0 +1,3 @@
+prepend-non-duplicate;GZ_SIM_RESOURCE_PATH;share/franka_fr3_gazebo/..
+prepend-non-duplicate;IGN_GAZEBO_RESOURCE_PATH;share/franka_fr3_gazebo/..
+prepend-non-duplicate;GAZEBO_MODEL_PATH;share/franka_fr3_gazebo/..
