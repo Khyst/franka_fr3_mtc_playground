@@ -41,7 +41,7 @@ source ~/.bashrc
 
 ```
 
-## Usage (작성중)
+## Usage
 
 ```bash
 # Source the workspace
