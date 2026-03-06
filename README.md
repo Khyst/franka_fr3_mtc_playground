@@ -36,6 +36,9 @@ rosdep init
 rosdep update
 rosdep install --from-paths src --ignore-src -y
 
+# Franka Arm 관련 의존성 추가 설치
+sudo apt install -y ros-humble-libfranka ros-humble-franka-msgs
+
 # Gazebo Ignition이 설치되지 않은 경우 (ROS2 humble 기준 Gazebo Ignition)
 # sudo apt-get install ros-humble-ros-gz
 
