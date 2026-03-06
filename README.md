@@ -43,19 +43,17 @@ source ~/.bashrc
 
 ## Usage (작성중)
 
-Provide instructions and examples on how to use the project.
-
 ```bash
 # Source the workspace
 source install/setup.bash
 
-# Run the simulation bringup
+# Run the simulation bringup (Gazebo Ignition 실행)
 ros2 launch franka_fr3_bringup fr3_gazebo_bringup.launch.py
 
-# Run MoveIt
+# Run MoveIt (MoveIt2 실행)
 ros2 launch franka_fr3_moveit_config fr3_move_group.launch.py
 
-# Run the MoveIt Task Constructor Demo
+# Run the MoveIt Task Constructor Demo (Custom(cup and figure pick n place)으로 제작된 MTC 로직 실행)
 ros2 launch learn_mtc learn_mtc_run.launch.py
 ```
 
