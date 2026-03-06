@@ -2,6 +2,9 @@
 
 Franka Arm을 이용한 Manipulation Task 작업을 위해 제작한 Playground 패키지
 
+## Demo Video
+![Pick and Place Demo](src/pick_n_place_demo_gazebo.gif)
+
 ## Features
 
 - Table 위에 Cup, Figure와 이를 집어서(Pick) 담을(Place) Bascket가 존재하는 Gazebo Ignition 기반 환경 실행
