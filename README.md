@@ -61,7 +61,6 @@ ros2 launch learn_mtc learn_mtc_run.launch.py
 
 ## Trouble Shooting
 
-Tip 1.
 - Container 내에서 실행파일을 실행했을 때 GUI(RViz)등의 화면이 나오지 않을 경우
     - 호스트 터미널에서 아래 명령어를 입력하여서 X 서버 접근 권한을 허용해보자
     ``` xhost +local:docker ```
