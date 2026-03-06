@@ -34,4 +34,10 @@ add_to_bashrc "alias rosdep_install='rosdep install --from-paths src --ignore-sr
 add_to_bashrc "alias cb='colcon build --symlink-install'"
 add_to_bashrc "alias cbp='colcon build --symlink-install --packages-select'"
 
+add_to_bashrc "alias fr_world='ros2 launch franka_fr3_bringup fr3_gazebo_bringup.launch.py'"
+add_to_bashrc "alias fr_moveit='ros2 launch franka_fr3_moveit_config fr3_move_group.launch.py'"
+add_to_bashrc "alias f1='ros2 launch learn_mtc learn_mtc_run_cup_without_reset_world.launch.py'"
+add_to_bashrc "alias f2='ros2 launch learn_mtc learn_mtc_run_figure_without_reset_world.launch.py'"
+add_to_bashrc "alias reset='python3 /root/ws_moveit/src/learn_mtc/scripts/reset_gz_world.py'"
+
 echo "Setup complete! Please restart your terminal or run 'sb'."

@@ -9,7 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 install(DIRECTORY
-  launch robots end_effectors meshes
+  robots end_effectors meshes
   DESTINATION share/${PROJECT_NAME}/
 )
 
