@@ -26,27 +26,27 @@ Franka Arm을 이용한 Manipulation Task 작업을 위해 제작한 Playground 
 git clone https://github.com/Khyst/franka_fr3_mtc_playground <my_project_ws> --recurse-submodules
 
 # locate to the project working directory
-cd my_project_ws
+cd <my_project_ws>
 
 # Container 열기
 DOCKER_IMAGE=humble-release docker compose run cpu
+
+# Gazebo Ignition이 설치되지 않은 경우 (ROS2 humble 기준 Gazebo Ignition)
+# sudo apt-get install ros-humble-ros-gz
+
+# Franka Arm 관련 의존성 설치
+sudo apt install -y ros-humble-libfranka ros-humble-franka-msgs
 
 # rosdep을 통한 의존성 패키지 설치 (Docker 컨테이너 내에서)
 rosdep init
 rosdep update
 rosdep install --from-paths src --ignore-src -y
 
-# Franka Arm 관련 의존성 추가 설치
-sudo apt install -y ros-humble-libfranka ros-humble-franka-msgs
-
-# Gazebo Ignition이 설치되지 않은 경우 (ROS2 humble 기준 Gazebo Ignition)
-# sudo apt-get install ros-humble-ros-gz
-
 # 빌드하기
 colcon build --symlink-install
 
 # 빌드한 환경 최종 소싱 작업
-source ~/.bashrc
+source ~/<my_project_ws>/install/local_setup.bash
 
 ```
 
