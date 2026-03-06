@@ -21,13 +21,7 @@ apt install -y \
 # 3. Git 소유권 예외 등록 (중요: dubious ownership 에러 방지)
 git config --global --add safe.directory /root/ws_moveit
 
-# 4. rosdep 초기화 (실패해도 중단되지 않도록 || true 처리)
-if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
-    rosdep init || true
-fi
-rosdep update
-
-# 5. Bashrc 설정 추가
+# 4. Bashrc 설정 추가
 add_to_bashrc "source /opt/ros/humble/setup.bash"
 # 빌드 결과물이 있을 때만 source 하도록 설정 (에러 방지)
 add_to_bashrc "[ -f /root/ws_moveit/install/setup.bash ] && source /root/ws_moveit/install/setup.bash"

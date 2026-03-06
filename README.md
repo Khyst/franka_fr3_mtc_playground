@@ -1,40 +1,47 @@
-# Project Name (e.g., franka_arm_playground)
+# Franka FR3 MoveIt Task Constructor based Playground
 
-A brief description of what this project does and who it's for.
+Franka Arm을 이용한 Manipulation Task 작업을 위해 제작한 Playground 패키지
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Table 위에 Cup, Figure와 이를 집어서(Pick) 담을(Place) Bascket가 존재하는 Gazebo Ignition 기반 환경 실행
+- URDF로 구성된 Franka FR3 (with Gripper)이 환경 내에서 스폰되어서 MoveIt2 기반으로 Plan & Control 기능
+- MoveIt Task Constructor를 기반으로 Pick n Place와 같은 Task 수행을 위한 로직
 
 ## Prerequisites
 
-List the software and dependencies required to use this project.
 - ROS 2 Humble
 - MoveIt 2
 - Gazebo Ignition
-- etc.
+- Docker CE (Optional : DevContainer)
 
 ## Installation
 
-Provide step-by-step instructions on how to build and install the project.
-
 ```bash
+
 # Clone the repository
-git clone https://github.com/username/project.git
+git clone https://github.com/Khyst/franka_fr3_mtc_playground <my_project_ws>
 
-# Navigate to the workspace
-cd project_ws
+# locate to the project working directory
+cd my_project_ws
 
-# Install dependencies
-rosdep install --from-paths src --ignore-src -r -y
+# Container 열기
+DOCKER_IMAGE=humble-release docker compose run cpu
 
-# Build the workspace
+# rosdep을 통한 의존성 패키지 설치 (Docker 컨테이너 내에서)
+rosdep init
+rosdep update
+rosdep install --from-paths src --ignore-src y
+
+# 빌드하기
 colcon build --symlink-install
+
+# 빌드한 환경 최종 소싱 작업
+source ~/.bashrc
+
 ```
 
-## Usage
+## Usage (작성중)
 
 Provide instructions and examples on how to use the project.
 
@@ -52,14 +59,9 @@ ros2 launch franka_fr3_moveit_config fr3_move_group.launch.py
 ros2 launch learn_mtc learn_mtc_run.launch.py
 ```
 
-## Package Architecture
+## Trouble Shooting
 
-Briefly explain the structure of the packages within the workspace.
-- `franka_fr3_description`: URDF and SRDF files for the FR3 robot.
-- `franka_fr3_bringup`: Launch files for Gazebo simulation and ROS-Ignition bridge.
-- `franka_fr3_moveit_config`: MoveIt 2 configuration files.
-- `learn_mtc`: C++ node for running Pick and Place using MoveIt Task Constructor.
-
-## License
-
-This project is licensed under the [License Name] License - see the LICENSE file for details.
+Tip 1.
+- Container 내에서 실행파일을 실행했을 때 GUI(RViz)등의 화면이 나오지 않을 경우
+    - 호스트 터미널에서 아래 명령어를 입력하여서 X 서버 접근 권한을 허용해보자
+    ``` xhost +local:docker ```
