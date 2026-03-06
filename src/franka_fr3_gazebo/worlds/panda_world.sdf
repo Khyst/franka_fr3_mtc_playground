@@ -159,7 +159,6 @@
       <pose>0.75 0 1.025 0 0 0</pose>
     </include>
 
-
     <include>
       <uri>
       https://fuel.ignitionrobotics.org/1.0/GoogleResearch/models/Avengers_Thor_PLlrpYniaeB
