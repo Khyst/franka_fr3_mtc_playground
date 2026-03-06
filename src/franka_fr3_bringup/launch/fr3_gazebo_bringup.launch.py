@@ -85,44 +85,44 @@ def generate_launch_description():
     )
     
     # 5. Joint State Broadcaster 실행 (spawn 완료 후 joint_state_broadcaster 컨트롤러 로드)
+    load_joint_state_broadcaster_process = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'joint_state_broadcaster'],
+        output='screen'
+    )
+
     load_joint_state_broadcaster = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=spawn,
-            on_exit=[
-                ExecuteProcess(
-                    cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-                        'joint_state_broadcaster'],
-                    output='screen'
-                )
-            ],
+            on_exit=[load_joint_state_broadcaster_process],
         )
     )
 
     # 6. Arm Controller 실행 (JointTrajectoryController - position interface for Gazebo)
+    load_fr3_arm_controller_process = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'fr3_arm_controller'],
+        output='screen'
+    )
+
     load_fr3_arm_controller = RegisterEventHandler(
         event_handler=OnProcessExit(
-            target_action=load_joint_state_broadcaster,
-            on_exit=[
-                ExecuteProcess(
-                    cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-                        'fr3_arm_controller'],
-                    output='screen'
-                )
-            ],
+            target_action=load_joint_state_broadcaster_process,
+            on_exit=[load_fr3_arm_controller_process],
         )
     )
 
     # 7. Hand Controller 실행 (GripperActionController - position interface for Gazebo)
+    load_fr3_hand_controller_process = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'fr3_hand_controller'],
+        output='screen'
+    )
+
     load_fr3_hand_controller = RegisterEventHandler(
         event_handler=OnProcessExit(
-            target_action=load_fr3_arm_controller,
-            on_exit=[
-                ExecuteProcess(
-                    cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-                        'fr3_hand_controller'],
-                    output='screen'
-                )
-            ],
+            target_action=load_fr3_arm_controller_process,
+            on_exit=[load_fr3_hand_controller_process],
         )
     )
 
@@ -130,7 +130,7 @@ def generate_launch_description():
         gazebo_empty_world,
         robot_state_publisher,
         spawn,
-        bridge,
+        # bridge,
         load_joint_state_broadcaster, # spawn 완료 후 joint_state_broadcaster 로드
         load_fr3_arm_controller, # joint_state_broadcaster 완료 후 arm controller 로드
         load_fr3_hand_controller, # arm controller 완료 후 hand controller 로드

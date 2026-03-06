@@ -13,14 +13,14 @@ services:
     command: /bin/bash
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - $XAUTHORITY:/root/.Xauthority
+      - /dev/dri:/dev/dri
       - ..:/root/ws_moveit
     environment:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY
   gpu:
     image: moveit/moveit2:${DOCKER_IMAGE}
-    container_name: moveit2_container_gpu 
+    container_name: moveit2_container_gpu
     privileged: true
     network_mode: host
     command: /bin/bash
@@ -30,10 +30,10 @@ services:
           devices:
             - driver: nvidia
               count: 1
-              capabilities: [gpu]
+              capabilities: [ gpu ]
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - $XAUTHORITY:/root/.Xauthority
+      - /dev/dri:/dev/dri
     environment:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY

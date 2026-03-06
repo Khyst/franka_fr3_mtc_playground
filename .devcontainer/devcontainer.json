@@ -19,7 +19,7 @@
     "ROS_DOMAIN_ID": "42"
   },
 
-  // *. VS Code 확장 프로그램을 컨테이너 내부에 설치하도록 설정
+  // *. VS Code 확장 프로그램을 컨테이너ㅇ 내부에 설치하도록 설정
   "customizations": {
     "vscode": {
       "extensions": [ 
