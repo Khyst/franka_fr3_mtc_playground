@@ -62,4 +62,88 @@
                       connected_to= "base">
   </xacro:franka_robot>
 
+  <!-- ============================================ -->
+  <!-- RealSense D435 Depth Camera on End-Effector  -->
+  <!-- ============================================ -->
+
+  <!-- Camera link with visual mesh from realsense2_description -->
+  <link name="realsense_d435">
+    <visual>
+      <geometry>
+        <mesh filename="package://realsense2_description/meshes/d435.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.09 0.025 0.025"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.072"/>
+      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+    </inertial>
+  </link>
+
+  <!-- Optical frame (Z forward, X right, Y down) for proper image orientation -->
+  <link name="realsense_d435_optical_frame"/>
+
+  <!-- Mount camera on fr3_hand: offset forward(+X) and up(+Z), tilted 30° down -->
+  <joint name="realsense_joint" type="fixed">
+    <parent link="fr3_hand"/>
+    <child link="realsense_d435"/>
+    <origin xyz="0.04 0 0.04" rpy="0 0 ${pi/2}"/>
+  </joint>
+
+  <!-- Optical frame transform: rotate from camera body to optical convention -->
+  <joint name="realsense_optical_joint" type="fixed">
+    <parent link="realsense_d435"/>
+    <child link="realsense_d435_optical_frame"/>
+    <!-- <origin xyz="0.04 0 0.04" rpy="${-pi/2} 0 ${-pi/2}"/> -->
+    <origin xyz="0.04 0 0.04" rpy="${pi} ${pi} 0"/>
+  </joint>
+
+  <!-- Gazebo: Depth Camera Sensor -->
+  <gazebo reference="realsense_d435">
+    <sensor name="d435_depth" type="depth_camera">
+      <pose>0 0 0 0 0 0</pose>
+      <update_rate>30</update_rate>
+      <topic>camera/depth/image</topic>
+      <gz_frame_id>realsense_d435_optical_frame</gz_frame_id>
+      <camera>
+        <horizontal_fov>1.211</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R_FLOAT32</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
+
+  <!-- Gazebo: RGB Camera Sensor -->
+  <gazebo reference="realsense_d435">
+    <sensor name="d435_color" type="camera">
+      <pose>0 0 0 0 0 0</pose>
+      <update_rate>30</update_rate>
+      <topic>camera/color/image</topic>
+      <gz_frame_id>realsense_d435_optical_frame</gz_frame_id>
+      <camera>
+        <horizontal_fov>1.211</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>RGB_INT8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+    </sensor>
+  </gazebo>
+
 </robot>

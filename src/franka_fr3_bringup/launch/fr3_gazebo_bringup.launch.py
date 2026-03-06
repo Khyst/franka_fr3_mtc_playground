@@ -37,6 +37,16 @@ def generate_launch_description():
     pkg_fr3_description = get_package_share_directory('franka_fr3_description')
     pkg_fr3_gazebo = get_package_share_directory('franka_fr3_gazebo')
 
+    # Add ROS package share directories to Gazebo resource path
+    # so Gazebo can resolve model:// URIs for meshes (e.g. realsense2_description)
+    ros_share_dir = os.path.dirname(get_package_share_directory('realsense2_description'))
+    gz_resource_path = os.environ.get('GZ_SIM_RESOURCE_PATH', '')
+    if ros_share_dir not in gz_resource_path:
+        os.environ['GZ_SIM_RESOURCE_PATH'] = ros_share_dir + (':' + gz_resource_path if gz_resource_path else '')
+    ign_resource_path = os.environ.get('IGN_GAZEBO_RESOURCE_PATH', '')
+    if ros_share_dir not in ign_resource_path:
+        os.environ['IGN_GAZEBO_RESOURCE_PATH'] = ros_share_dir + (':' + ign_resource_path if ign_resource_path else '')
+
     # 1. Robot State Publisher 실행 (fr3.urdf.xacro에 정의된 gripper 포함 로봇 암에 대한 robot_description 발행)
     robot_description = get_fr3_robot_description('franka_fr3_description')
     robot_state_publisher = Node(
@@ -130,7 +140,7 @@ def generate_launch_description():
         gazebo_empty_world,
         robot_state_publisher,
         spawn,
-        # bridge,
+        bridge,
         load_joint_state_broadcaster, # spawn 완료 후 joint_state_broadcaster 로드
         load_fr3_arm_controller, # joint_state_broadcaster 완료 후 arm controller 로드
         load_fr3_hand_controller, # arm controller 완료 후 hand controller 로드
