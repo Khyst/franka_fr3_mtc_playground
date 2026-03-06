@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
   <xacro:macro name="franka_robot"
               params="arm_id
                       joint_limits
@@ -32,7 +33,6 @@
                       controllers_yaml:='$(find franka_fr3_moveit_config)/config/gazebo_controllers.yaml'">
                       
     <xacro:include filename="$(find franka_fr3_description)/robots/common/utils.xacro" />
-
     <xacro:include filename="$(find franka_fr3_description)/robots/common/franka_arm.xacro" />
 
     <xacro:franka_arm
@@ -52,16 +52,21 @@
       connected_to="${connected_to}"
     />
 
+    <!-- If the end-effector is a franka_hand -->
     <xacro:if value="${hand and ee_id == 'franka_hand'}">
       <xacro:include filename="$(find franka_fr3_description)/end_effectors/common/franka_hand.xacro"/>
       <xacro:include filename="$(find franka_fr3_description)/end_effectors/common/utils.xacro" />
+
       <xacro:if value="${arm_id == 'fp3'}">
         <xacro:property name="ee_color" value="black" />
       </xacro:if>
+
       <xacro:if value="${arm_id == 'fr3' or arm_id == 'fer' or arm_id == 'fr3v2' or arm_id == 'fr3v2.1'}">
         <xacro:property name="ee_color" value="white" />
       </xacro:if>
+
       <xacro:property name="connection" value="${special_connection if special_connection != '' else arm_id + '_link8'}" />
+      
       <xacro:franka_hand
         connected_to="${arm_prefix}${connection}"
         arm_id="${arm_id}"
@@ -77,8 +82,10 @@
         description_pkg="${description_pkg}"
         with_sc="${with_sc}"
       />
+      
     </xacro:if>
 
+    <!-- If the end-effector is not a franka_hand -->
     <xacro:if value="${hand and ee_id != 'none' and ee_id != 'franka_hand'}">
       <xacro:include filename="$(find franka_fr3_description)/end_effectors/common/ee_with_one_link.xacro"/>
       <xacro:include filename="$(find franka_fr3_description)/end_effectors/common/utils.xacro" />
@@ -154,6 +161,7 @@
       </xacro:if>
     </xacro:if>
 
+    <!-- Load the ROS2 control configuration for the robot arm. -->
     <xacro:if value="${ros2_control}">
       <xacro:include filename="$(find franka_fr3_description)/robots/common/franka_arm.ros2_control.xacro"/>
       <xacro:franka_arm_ros2_control
@@ -170,4 +178,5 @@
     </xacro:if>
 
   </xacro:macro>
+
 </robot>
