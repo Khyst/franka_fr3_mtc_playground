@@ -78,6 +78,9 @@ Thumbs.db
 *.deb
 *.rpm
 
+# Devcontainer installers
+.devcontainer/Miniconda3-*.sh
+
 # Large data files
 *.parquet
 *.h5
