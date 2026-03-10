@@ -13,6 +13,7 @@
                  controllers_yaml:='$(find franka_gazebo_bringup)/config/franka_gazebo_controllers.yaml'">
 
     <xacro:property name="arm_prefix_modified" value="${'' if arm_prefix == '' else arm_prefix + '_'}" />
+    
     <ros2_control name="${arm_prefix_modified}FrankaHardwareInterface" type="system">
         <hardware>
           <param name="version">0.1.0</param>

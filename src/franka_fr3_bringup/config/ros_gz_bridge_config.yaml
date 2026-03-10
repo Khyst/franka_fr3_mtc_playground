@@ -1,36 +1,36 @@
-# RealSense D435 Camera Bridge: Gazebo -> ROS2
+# RealSense D435 RGBD Camera Bridge: Gazebo Sim -> ROS 2
 
-# Depth Image
-- ros_topic_name: "/camera/depth/image_raw"
-  gz_topic_name: "/camera/depth/image"
+# 1. RGB Image
+- ros_topic_name: "/camera/color/image_raw"
+  gz_topic_name: "/camera/image"  # rgbd_camera의 기본 이미지 토픽
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
 
-# Depth Camera Info
-- ros_topic_name: "/camera/depth/camera_info"
-  gz_topic_name: "/camera/depth/camera_info"
+# 2. RGB Camera Info
+- ros_topic_name: "/camera/color/camera_info"
+  gz_topic_name: "/camera/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
 
-# Depth Point Cloud
-- ros_topic_name: "/camera/depth/points"
-  gz_topic_name: "/camera/depth/image/points"
-  ros_type_name: "sensor_msgs/msg/PointCloud2"
-  gz_type_name: "gz.msgs.PointCloudPacked"
-  direction: GZ_TO_ROS
-
-# RGB Image
-- ros_topic_name: "/camera/color/image_raw"
-  gz_topic_name: "/camera/color/image"
+# 3. Depth Image
+- ros_topic_name: "/camera/depth/image_raw"
+  gz_topic_name: "/camera/depth_image" # 'depth_image'로 자동 생성됨
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
 
-# RGB Camera Info
-- ros_topic_name: "/camera/color/camera_info"
-  gz_topic_name: "/camera/color/camera_info"
+# 4. Depth Point Cloud
+- ros_topic_name: "/camera/depth/points"
+  gz_topic_name: "/camera/points"      # 'points'로 자동 생성됨
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  direction: GZ_TO_ROS
+
+# 5. Depth Camera Info (선택 사항: 보통 RGB Info와 동일한 사양을 사용하거나 공유함)
+- ros_topic_name: "/camera/depth/camera_info"
+  gz_topic_name: "/camera/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
