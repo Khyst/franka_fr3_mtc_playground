@@ -29,24 +29,10 @@ git clone https://github.com/Khyst/franka_fr3_mtc_playground <my_project_ws> --r
 cd <my_project_ws>
 
 # Container 열기
-DOCKER_IMAGE=humble-release docker compose run cpu
+bash run_docker.sh
 
-# Gazebo Ignition이 설치되지 않은 경우 (ROS2 humble 기준 Gazebo Ignition)
-# sudo apt-get install ros-humble-ros-gz
-
-# Franka Arm 관련 의존성 설치
-sudo apt install -y ros-humble-libfranka ros-humble-franka-msgs
-
-# rosdep을 통한 의존성 패키지 설치 (Docker 컨테이너 내에서)
-rosdep init
-rosdep update
-rosdep install --from-paths src --ignore-src -y
-
-# 빌드하기
-colcon build --symlink-install
-
-# 빌드한 환경 최종 소싱 작업
-source ~/<my_project_ws>/install/local_setup.bash
+# 초기 설치 shell 파일 실행 (Container 내에서)
+bash /root/ws_moveit/.devcontainer/initial_setup.sh
 
 ```
 
